@@ -1,0 +1,48 @@
+{
+    "name": "process-manager",
+    "description": "{{@TODO description}}",
+    "type": "cakephp-plugin",
+    "keywords": [
+        "cakephp",
+        "process-manager"
+    ],
+    "homepage": "https://github.com/friendsofcake/process-manager",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jad Bitar",
+            "homepage": "http://jadb.io",
+            "role": "Author"
+        },
+        {
+            "name": "ADmad",
+            "homepage": "https://github.com/ADmad",
+            "role": "Author"
+        },
+        {
+            "name": "Others",
+            "homepage": "https://github.com/friendsofcake/process-manager/graphs/contributors"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/friendsofcake/process-manager/issues",
+        "source": "https://github.com/friendsofcake/process-manager"
+    },
+    "require": {
+    },
+    "require-dev": {
+        "cakephp/cakephp": "~3.0",
+        "cakephp/cakephp-codesniffer": "2.*",
+        "phpunit/phpunit": "4.1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "ProcessManager\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ProcessManager\\Test\\": "tests"
+        }
+    }
+}
