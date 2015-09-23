@@ -23,7 +23,8 @@ use Exception;
  * }
  * ```
  */
-class ProcessManagerTask extends Shell {
+class ProcessManagerTask extends Shell
+{
 
     use EventDispatcherTrait;
 
@@ -35,7 +36,7 @@ class ProcessManagerTask extends Shell {
      *
      * @var array
      */
-    protected static $_signals = array (
+    protected static $_signals =  [
         1 => 'SIGHUP',
         2 => 'SIGINT',
         3 => 'SIGQUIT',
@@ -100,7 +101,7 @@ class ProcessManagerTask extends Shell {
         62 => 'SIGRTMAX-2',
         63 => 'SIGRTMAX-1',
         64 => 'SIGRTMAX'
-    );
+    ];
 
     /**
      * Gets the option parser instance and configures it.
@@ -109,22 +110,24 @@ class ProcessManagerTask extends Shell {
      * @return ConsoleOptionParser
      * @link http://book.cakephp.org/2.0/en/console-and-shells.html#Shell::getOptionParser
      */
-    public function processOptionParser(ConsoleOptionParser $parser) {
+    public function processOptionParser(ConsoleOptionParser $parser)
+    {
         return $parser->addOption('process_id', [
             'help' => 'A process identifier to make locking work with Supervisor'
         ]);
     }
 
    /**
-     * Register signals and when they are triggered, write a Signal.shutdown property
-     *
-     * @param mixed $signal Can be any of the SIG* constants or its human name
-     * @param mixed $callback Can be anything PHP callable
-     * @return void
-     * @throws \Exception on invalid (unknown) signals.
-     * @throws \Exception if unable to subscribe to signal.
-     */
-    public function signal($signal, callable $callback) {
+    * Register signals and when they are triggered, write a Signal.shutdown property
+    *
+    * @param mixed $signal Can be any of the SIG* constants or its human name
+    * @param mixed $callback Can be anything PHP callable
+    * @return void
+    * @throws \Exception on invalid (unknown) signals.
+    * @throws \Exception if unable to subscribe to signal.
+    */
+    public function signal($signal, callable $callback)
+    {
         if (is_numeric($signal)) {
             if (!array_key_exists($signal, static::$_signals)) {
                 throw new Exception('Unknown signal: %s', $signal);
@@ -146,17 +149,18 @@ class ProcessManagerTask extends Shell {
         $this->log(sprintf('Successfully subscribed to signal %s (%d)', $signalName, $signo), 'debug');
     }
 
-    public function handleKillSignals() {
-        $callback = function($signo) {
+    public function handleKillSignals()
+    {
+        $callback = function ($signo) {
             $this->log('Got OS signal "' . static::$_signals[$signo] .'"', 'warning');
 
             $event = new Event('CLI.signal', compact('signo'));
             $this->getEventManager()->dispatch($event);
         };
 
-        $this->signal('SIGHUP',  $callback);
+        $this->signal('SIGHUP', $callback);
         $this->signal('SIGTERM', $callback);
-        $this->signal('SIGINT',  $callback);
+        $this->signal('SIGINT', $callback);
         $this->signal('SIGQUIT', $callback);
         $this->signal('SIGUSR1', $callback);
         $this->signal('SIGUSR2', $callback);
