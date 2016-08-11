@@ -1,5 +1,5 @@
 {
-    "name": "process-manager",
+    "name": "friendsofcake/process-manager",
     "description": "{{@TODO description}}",
     "type": "cakephp-plugin",
     "keywords": [
